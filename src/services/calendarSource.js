@@ -1,10 +1,12 @@
 // データソースの切り替え。
 //   - OAuth クライアントIDが設定済み & サインイン済み → 実際の Google Calendar から取得
-//   - それ以外 → バンドル済みサンプルデータ（実カレンダーから取得した実データ）
+//   - それ以外 → バンドル済みデータ（events.json）
 //
+// events.json は GitHub Actions の定期実行（scripts/fetchCalendar.mjs）で
+// 毎日カレンダーから自動更新される。手動取得や CI 前の初期値も同ファイル。
 // どちらも「生のイベント配列」を返し、parseEvents.js で勉強記録へ変換する。
 
-import sampleEvents from '../data/events.sample.json';
+import bundledEvents from '../data/events.json';
 import { isLiveConfigured, fetchEvents } from './googleCalendar.js';
 
 // 過去3ヶ月強をカバーする取得範囲（live API 用）
@@ -20,7 +22,7 @@ export async function loadEvents({ useLive = false } = {}) {
     const { timeMin, timeMax } = defaultRange();
     return fetchEvents({ timeMin, timeMax });
   }
-  return sampleEvents;
+  return bundledEvents;
 }
 
 export function liveAvailable() {
