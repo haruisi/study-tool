@@ -52,7 +52,7 @@ export default function App() {
         <div className="app-title">
           <h1>学習記録ダッシュボード</h1>
           <p className="app-source">
-            {live ? 'Google Calendar（接続中）' : 'サンプルデータ表示中'}
+            {live ? 'Google Calendar（接続中）' : 'カレンダーデータ（毎日自動更新）'}
           </p>
         </div>
         <div className="app-actions">
